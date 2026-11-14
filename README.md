@@ -5,24 +5,25 @@ iPhone 实时网速 + 灵动岛。无 CocoaPods、无 Hermes、无 React Native�
 ## 功能
 
 - 实时上下行（`getifaddrs`）
-- 灵动岛 / 锁屏 Live Activity
-- App 内仪表盘与 60 秒曲线
-- 单位切换、暂停监控
+- 灵动岛 / 锁屏 Live Activity（按设定间隔取均值刷新）
+- App 内仪表盘与曲线
+- 单位切换、暂停监控、本地日志（上限 10MB）
 - Cloudflare 一键测速（可选）
 
 ## 打开 / 安装
 
 ```bash
-cd /Users/game-netease/Desktop/workspace/netspeed
-xcodegen generate
+cd netspeed
+xcodegen generate   # 需要已安装 XcodeGen
 open NetSpeed.xcodeproj
 ```
 
-在 Xcode 里选你的 iPhone，点 Run。  
-Bundle ID：`com.local.netspeed`（与 todo 同一开发团队）。
+在 Xcode → Signing & Capabilities 里选你自己的 Team，连上 iPhone 后 Run。  
+Bundle ID：`com.local.netspeed` / `com.local.netspeed.widgets`
 
 ## 说明
 
-- 需要 iOS 16.1+（Live Activity）
+- 需要 iOS 16.2+（Live Activity）
 - 系统设置 → 网速 → 允许实时活动
 - 数据只在本机；测速仅在你点击时访问 Cloudflare
+- 切到后台后灵动岛会尽量续刷；从多任务杀掉 App 后无法再更新（系统限制）
