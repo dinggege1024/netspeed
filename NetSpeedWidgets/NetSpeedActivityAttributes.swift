@@ -10,6 +10,9 @@ struct NetSpeedActivityAttributes: ActivityAttributes {
         var upShort: String
         var networkLabel: String
         var seq: Int = 0
+        var refreshedAt: String = ""
+        var sessionStart: Date = Date()
+        var updatedAt: Date = Date()
     }
 
     var title: String

@@ -7,7 +7,7 @@ final class SpeedLogger: ObservableObject {
     static let shared = SpeedLogger()
 
     private let logger = Logger(subsystem: "com.local.netspeed", category: "traffic")
-    private let memoryLimit = 40
+    private let memoryLimit = 80
     private let maxFileBytes: UInt64 = 10 * 1024 * 1024
     private let ioQueue = DispatchQueue(label: "com.local.netspeed.log.io", qos: .utility)
 

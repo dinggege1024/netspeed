@@ -14,7 +14,7 @@ struct SpeedSample: Identifiable, Equatable {
 
 @MainActor
 final class TrafficMonitor: ObservableObject {
-    static let intervalOptions: [TimeInterval] = [1, 2, 5, 10, 15, 30]
+    static let intervalOptions: [TimeInterval] = [2, 5, 10, 15, 30]
 
     @Published private(set) var downSpeed: Double = 0
     @Published private(set) var upSpeed: Double = 0
@@ -36,8 +36,11 @@ final class TrafficMonitor: ObservableObject {
     @Published private(set) var islandUp: Double = 0
     /// Keep process alive in background so island can keep updating (uses audio session).
     @Published private(set) var keepAliveEnabled: Bool
+    @Published private(set) var lastIslandPushAt: Date?
+    @Published private(set) var diagnosticLine: String = "…"
 
     private var sourceTimer: DispatchSourceTimer?
+    private var ticksSinceHeartbeat = 0
     private var lastRx: UInt64?
     private var lastTx: UInt64?
     private var lastAt: Date?
@@ -83,17 +86,29 @@ final class TrafficMonitor: ObservableObject {
     }
 
     init() {
-        let saved = UserDefaults.standard.double(forKey: defaultsKey)
-        if Self.intervalOptions.contains(saved) {
-            sampleInterval = saved
+        // Prefer 2s island push (user request). Migrate once from older defaults.
+        let intervalMigratedKey = "netspeed.intervalMigrated2s"
+        if !UserDefaults.standard.bool(forKey: intervalMigratedKey) {
+            sampleInterval = 2
+            UserDefaults.standard.set(2.0, forKey: defaultsKey)
+            UserDefaults.standard.set(true, forKey: intervalMigratedKey)
         } else {
-            sampleInterval = 5
+            let saved = UserDefaults.standard.double(forKey: defaultsKey)
+            sampleInterval = Self.intervalOptions.contains(saved) ? saved : 2
         }
-        // Default ON — matches “后台也要刷岛” expectation for personal use.
-        if UserDefaults.standard.object(forKey: keepAliveKey) == nil {
+        // Keep-alive ON so lock screen keeps receiving updates (process otherwise
+        // suspends → refreshedAt freezes). Audio is stopped while app is active
+        // and paused around each Activity.update.
+        let kaMigratedKey = "netspeed.keepAliveMigratedOn2"
+        if !UserDefaults.standard.bool(forKey: kaMigratedKey) {
             keepAliveEnabled = true
+            UserDefaults.standard.set(true, forKey: keepAliveKey)
+            UserDefaults.standard.set(true, forKey: kaMigratedKey)
         } else {
             keepAliveEnabled = UserDefaults.standard.bool(forKey: keepAliveKey)
+        }
+        BackgroundKeepAlive.shared.onWakeHint = { [weak self] in
+            self?.handleWakeHint(reason: "keepalive-hint")
         }
         startPathMonitor()
         start()
@@ -108,12 +123,12 @@ final class TrafficMonitor: ObservableObject {
             }
             log.info("scene=active")
             if isMonitoring {
-                resetIslandWindow()
-                ensureTimerRunning(fireImmediately: true)
-                syncKeepAlive()
+                handleWakeHint(reason: "scene-active")
+                Task { await recreateIslandIfNeeded() }
             }
         case .inactive:
-            log.debug("scene=inactive")
+            // Lock button often hits inactive first — arm keep-alive before suspend.
+            log.info("scene=inactive (arm keepalive)")
             if isMonitoring {
                 BackgroundRunner.shared.begin()
                 syncKeepAlive()
@@ -128,6 +143,21 @@ final class TrafficMonitor: ObservableObject {
             ensureTimerRunning(fireImmediately: true)
         @unknown default:
             break
+        }
+    }
+
+    /// Called on unlock / audio revive / become active.
+    func handleWakeHint(reason: String) {
+        guard isMonitoring else { return }
+        log.info("wakeHint reason=\(reason) bg=\(isInBackground)")
+        syncKeepAlive()
+        // Locked: only keep process alive — never spam Activity.update
+        // (that burns presentation budget → lock-screen clock freezes).
+        guard !isInBackground else { return }
+        ensureTimerRunning(fireImmediately: true)
+        Task {
+            await recreateIslandIfNeeded()
+            await pushIsland(force: true)
         }
     }
 
@@ -193,15 +223,44 @@ final class TrafficMonitor: ObservableObject {
     }
 
     private func syncKeepAlive() {
-        if keepAliveEnabled, isMonitoring {
+        // Never play keep-alive audio while the app is active — it fights
+        // Dynamic Island chrome and is useless for presentation.
+        let appActive = UIApplication.shared.applicationState == .active
+        let wantAudio = keepAliveEnabled && isMonitoring && !appActive
+        if wantAudio {
             BackgroundKeepAlive.shared.start()
+            BackgroundKeepAlive.shared.ensureRunning()
             BackgroundRunner.shared.begin()
         } else {
             BackgroundKeepAlive.shared.stop()
-            if !isInBackground {
+            if isMonitoring, isInBackground {
+                BackgroundRunner.shared.begin()
+            } else if !isInBackground {
                 BackgroundRunner.shared.end()
             }
         }
+        refreshDiagnostic()
+    }
+
+    private func refreshDiagnostic() {
+        let tickAge: String
+        if let last = SpeedLogger.shared.lastTickAt {
+            tickAge = String(format: "%.0fs", Date().timeIntervalSince(last))
+        } else {
+            tickAge = "never"
+        }
+        let islandAge: String
+        if let last = lastIslandPushAt {
+            islandAge = String(format: "%.0fs", Date().timeIntervalSince(last))
+        } else {
+            islandAge = "never"
+        }
+        var la = "LA=?"
+        if #available(iOS 16.2, *) {
+            la = LiveActivityController.diagnosticSummary()
+        }
+        diagnosticLine =
+            "tickAge=\(tickAge) islandAge=\(islandAge) ka=\(BackgroundKeepAlive.shared.statusLine) bg=\(isInBackground) \(la)"
     }
 
     private func resetIslandWindow() {
@@ -210,27 +269,32 @@ final class TrafficMonitor: ObservableObject {
         islandAnchorAt = nil
     }
 
+    private var loopTimer: Timer?
+
     private func ensureTimerRunning(fireImmediately: Bool) {
         stopTimer()
         let interval = activeInterval
-        let timer = DispatchSource.makeTimerSource(queue: .main)
-        let deadline: DispatchTime = fireImmediately ? .now() : .now() + interval
-        timer.schedule(deadline: deadline, repeating: interval, leeway: .milliseconds(80))
-        timer.setEventHandler { [weak self] in
-            guard let self else { return }
+        // RunLoop .common keeps firing during tracking / lock transitions better
+        // than a plain DispatchSource in some iOS versions.
+        let timer = Timer(timeInterval: interval, repeats: true) { [weak self] _ in
             Task { @MainActor in
-                await self.tick()
+                await self?.tick()
             }
         }
-        timer.resume()
-        sourceTimer = timer
-        log.debug("timer repeating=\(interval)s fireNow=\(fireImmediately) bg=\(isInBackground)")
+        RunLoop.main.add(timer, forMode: .common)
+        loopTimer = timer
+        if fireImmediately {
+            Task { await tick() }
+        }
+        log.debug("timer repeating=\(interval)s fireNow=\(fireImmediately) bg=\(isInBackground) mode=common")
     }
 
     private func stopTimer() {
         sourceTimer?.setEventHandler {}
         sourceTimer?.cancel()
         sourceTimer = nil
+        loopTimer?.invalidate()
+        loopTimer = nil
     }
 
     private func startPathMonitor() {
@@ -268,6 +332,19 @@ final class TrafficMonitor: ObservableObject {
         guard isMonitoring else { return }
         log.noteTick()
 
+        if keepAliveEnabled, isInBackground {
+            BackgroundKeepAlive.shared.ensureRunning()
+        }
+
+        ticksSinceHeartbeat &+= 1
+        // Heartbeat every ~10 foreground ticks or every background tick window.
+        let heartbeatEvery = isInBackground ? 1 : 10
+        if ticksSinceHeartbeat >= heartbeatEvery {
+            ticksSinceHeartbeat = 0
+            refreshDiagnostic()
+            log.info("heartbeat \(diagnosticLine)")
+        }
+
         let counters = Self.readTrafficBytes()
         totalDown = counters.rx
         totalUp = counters.tx
@@ -288,8 +365,11 @@ final class TrafficMonitor: ObservableObject {
 
         guard let prevRx = lastRx, let prevTx = lastTx, let prevAt = lastAt else {
             log.debug("baseline rx=\(counters.rx) tx=\(counters.tx)")
-            // First paint on island so user sees it is alive; then wait full window.
-            await publishIsland(down: 0, up: 0, force: true)
+            // First paint only in foreground — background create is rejected by iOS
+            // and burning failed requests helps nothing for lock-screen clock.
+            if !isInBackground {
+                await publishIsland(down: 0, up: 0, force: true)
+            }
             return
         }
 
@@ -346,11 +426,9 @@ final class TrafficMonitor: ObservableObject {
               let anchorAt = islandAnchorAt else { return }
 
         let elapsed = now.timeIntervalSince(anchorAt)
-        // Background ticks are already spaced by sampleInterval — always close the window.
-        // Foreground ticks every 1s — wait until window is full.
-        let windowReady = isInBackground || elapsed >= sampleInterval - 0.05
-        guard windowReady else { return }
-        guard elapsed >= 0.2 else { return }
+        // Always wait for a full average window (e.g. 5s) — foreground or lock screen.
+        // Closing early produced 1s burst windows → lots of 0B while watching video.
+        guard elapsed >= sampleInterval - 0.05 else { return }
 
         if counters.rx < anchorRx || counters.tx < anchorTx {
             resetIslandWindow()
@@ -359,28 +437,29 @@ final class TrafficMonitor: ObservableObject {
 
         let windowDown = Double(counters.rx &- anchorRx) / elapsed
         let windowUp = Double(counters.tx &- anchorTx) / elapsed
+        // Always push the real window average. Holding the last speed made the
+        // island look frozen (same KB for many cycles) while logs still said ok.
         var showDown = windowDown
         var showUp = windowUp
         if windowDown + windowUp < noiseFloorBps {
             showDown = 0
             showUp = 0
-        }
-        let idleFor = lastTrafficAt.map { now.timeIntervalSince($0) } ?? .infinity
-        if idleFor >= idleZeroAfter {
-            showDown = 0
-            showUp = 0
+        } else {
+            lastTrafficAt = now
         }
 
         log.info(
             String(
-                format: "island window=%.1fs avg=↓%.0f ↑%.0f → push",
+                format: "island window=%.1fs avg=↓%.0f ↑%.0f → push (raw ↓%.0f ↑%.0f)",
                 elapsed,
                 showDown,
-                showUp
+                showUp,
+                windowDown,
+                windowUp
             )
         )
 
-        await publishIsland(down: showDown, up: showUp, force: true)
+        await publishIsland(down: showDown, up: showUp, force: false)
 
         // Start next average window from this sample.
         islandAnchorRx = counters.rx
@@ -394,13 +473,25 @@ final class TrafficMonitor: ObservableObject {
         await pushIsland(force: force)
     }
 
+    private func recreateIslandIfNeeded() async {
+        guard #available(iOS 16.2, *) else { return }
+        await LiveActivityController.flushPendingCreateIfNeeded(
+            downLabel: SpeedFormatter.format(islandDown, unit: unit),
+            upLabel: SpeedFormatter.format(islandUp, unit: unit),
+            downShort: SpeedFormatter.compact(islandDown),
+            upShort: SpeedFormatter.compact(islandUp),
+            networkLabel: networkLabel
+        )
+        refreshDiagnostic()
+    }
+
     private func pushIsland(force: Bool = false) async {
         guard isMonitoring else { return }
         guard #available(iOS 16.2, *) else {
             liveActivityOn = false
             return
         }
-        liveActivityOn = await LiveActivityController.upsert(
+        let ok = await LiveActivityController.upsert(
             downLabel: SpeedFormatter.format(islandDown, unit: unit),
             upLabel: SpeedFormatter.format(islandUp, unit: unit),
             downShort: SpeedFormatter.compact(islandDown),
@@ -408,6 +499,22 @@ final class TrafficMonitor: ObservableObject {
             networkLabel: networkLabel,
             force: force
         )
+        liveActivityOn = ok
+        if ok {
+            lastIslandPushAt = Date()
+            log.info(
+                String(
+                    format: "island push committed ↓%@ ↑%@ force=%@ age=0s",
+                    SpeedFormatter.compact(islandDown),
+                    SpeedFormatter.compact(islandUp),
+                    force ? "true" : "false"
+                )
+            )
+        } else {
+            // Must not pretend the lock-screen clock advanced.
+            log.error("island push returned false — lock UI not updated")
+        }
+        refreshDiagnostic()
     }
 
     nonisolated static func readTrafficBytes() -> (rx: UInt64, tx: UInt64) {

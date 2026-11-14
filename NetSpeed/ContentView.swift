@@ -84,14 +84,12 @@ struct ContentView: View {
             }
             Text(
                 monitor.liveActivityOn
-                    ? (monitor.keepAliveEnabled
-                        ? "已开后台保活：切走后按间隔继续刷岛（更耗电）。从多任务杀掉 App 仍会停。"
-                        : "未开后台保活：系统挂起后刘海会冻住，需再打开 App。")
+                    ? "回主屏幕或锁屏才能看到灵动岛（App 打开时系统不显示本 App 的岛）。当前推送 ↓\(SpeedFormatter.compact(monitor.islandDown)) ↑\(SpeedFormatter.compact(monitor.islandUp))"
                     : "开始监控后会尝试打开灵动岛。请在系统设置 → 网速 中允许实时活动。"
             )
-            .font(.caption)
-            .foregroundStyle(Theme.textMuted)
-            .fixedSize(horizontal: false, vertical: true)
+                .font(.caption)
+                .foregroundStyle(Theme.textMuted)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -268,7 +266,7 @@ struct ContentView: View {
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(Theme.textFaint)
             }
-            Text("按此秒数对流量取平均，再刷新灵动岛（App 内仍实时）")
+            Text("按此秒数取平均再刷岛/锁屏（默认 2 秒）。App 内仍每秒实时。")
                 .font(.caption)
                 .foregroundStyle(Theme.textFaint)
 
@@ -304,7 +302,7 @@ struct ContentView: View {
                     Text("后台持续刷岛")
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(Theme.text)
-                    Text("保活进程，切走后仍按间隔更新灵动岛（更耗电；杀进程无效）")
+                    Text("锁屏后靠它拖住进程，时间才能继续走；关掉后锁屏秒数很快会冻住。杀进程无效。")
                         .font(.caption)
                         .foregroundStyle(Theme.textFaint)
                 }
@@ -388,7 +386,7 @@ struct ContentView: View {
     private var debugLogCard: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("采样日志")
+                Text("诊断日志")
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.text)
                 Spacer()
@@ -396,6 +394,10 @@ struct ContentView: View {
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(Theme.textFaint)
             }
+            Text(monitor.diagnosticLine)
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundStyle(Theme.amber.opacity(0.9))
+                .fixedSize(horizontal: false, vertical: true)
             HStack {
                 Text("本地 \(logger.fileSizeLabel)")
                     .font(.caption.monospacedDigit())
@@ -407,16 +409,16 @@ struct ContentView: View {
                 .font(.caption.weight(.medium))
                 .foregroundStyle(Theme.teal)
             }
-            Text("Documents/Logs/netspeed.log · 上限 10MB 自动轮转")
+            Text("看 heartbeat / island update / keepalive：停了就没有这些行")
                 .font(.caption2)
                 .foregroundStyle(Theme.textFaint)
-            Text("原始 ↓\(SpeedFormatter.compact(monitor.rawDown))  ↑\(SpeedFormatter.compact(monitor.rawUp))")
+            Text("原始 ↓\(SpeedFormatter.compact(monitor.rawDown))  ↑\(SpeedFormatter.compact(monitor.rawUp)) · 岛 ↓\(SpeedFormatter.compact(monitor.islandDown)) ↑\(SpeedFormatter.compact(monitor.islandUp))")
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(Theme.textMuted)
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 2) {
-                    ForEach(Array(logger.lines.suffix(12).enumerated()), id: \.offset) { _, line in
+                    ForEach(Array(logger.lines.suffix(20).enumerated()), id: \.offset) { _, line in
                         Text(line)
                             .font(.system(size: 10, design: .monospaced))
                             .foregroundStyle(Theme.textFaint)
@@ -424,7 +426,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .frame(maxHeight: 140)
+            .frame(maxHeight: 180)
         }
         .padding(16)
         .background(

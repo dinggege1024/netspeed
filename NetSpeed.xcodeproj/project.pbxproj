@@ -209,7 +209,6 @@
 				};
 			};
 			buildConfigurationList = A3527C32EEEFE60D7A0B1AE3 /* Build configuration list for PBXProject "NetSpeed" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -219,6 +218,7 @@
 			mainGroup = 1DFB351C761E90D1488958E8;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+			productRefGroup = 3BEF8E1291DAD5F6BC70AE8E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
