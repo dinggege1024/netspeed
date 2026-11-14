@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.netspeed.app",
+      "bundleIdentifier": "com.local.netspeed",
       "infoPlist": {
         "NSLocalNetworkUsageDescription": "用于读取本机网络接口流量以显示实时网速。",
         "NSSupportsLiveActivities": true,
@@ -29,7 +29,7 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "package": "com.netspeed.app",
+      "package": "com.local.netspeed",
       "predictiveBackGestureEnabled": false
     },
     "web": {
@@ -43,8 +43,8 @@
       [
         "expo-widgets",
         {
-          "bundleIdentifier": "com.netspeed.app.widgets",
-          "groupIdentifier": "group.com.netspeed.app",
+          "bundleIdentifier": "com.local.netspeed.widgets",
+          "groupIdentifier": "group.com.local.netspeed",
           "frequentUpdates": true
         }
       ]

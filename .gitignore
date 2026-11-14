@@ -39,3 +39,17 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Local logs
+**/Logs/
+*.log

@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08159D958FADB86B4CC76603 /* TrafficMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70548487A041897CB0F6E81 /* TrafficMonitor.swift */; };
+		2024BEE32D40655F72238840 /* NetSpeedActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */; };
+		228567D0AB2822BFCA7B4B8C /* NetSpeedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA13388201D186472DA0015D /* NetSpeedApp.swift */; };
+		22D818981268F46F58C8206A /* NetSpeedLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B752FBC4B69F1FB9AFB3FE06 /* NetSpeedLiveActivity.swift */; };
+		338F47C69FF7EAD9016C156C /* SpeedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD71E260E22EB9A274DFC7 /* SpeedLogger.swift */; };
+		419BB8111CCCD1D084147CE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9379ACBEBD80298ADA7E6D3 /* Assets.xcassets */; };
+		614B77018F8D64DADCC7DE43 /* NetSpeedWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F7B656DCD7022700AC8D79 /* NetSpeedWidgetsBundle.swift */; };
+		6270F5DC408E6857B9510F38 /* SpeedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84A7033DFE327ECAE6DBCC /* SpeedFormatter.swift */; };
+		721FE2D93260BB070F6BE279 /* SpeedTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A5BE7F629F5429F0A7B24 /* SpeedTestService.swift */; };
+		75FD177D3469DE921FFFF6BE /* NetSpeedActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */; };
+		776C8F0D963C3A4D934258BD /* NetSpeedWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B34D6A7CAFFBE9EECE1F2F2 /* NetSpeedWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B49933C6F38D7A6191C24616 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10304B2A13F3B1893ADFB71 /* Theme.swift */; };
+		BB602C1E0FB001C7DB02AE91 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8021FCA43C9659058D3153B5 /* ContentView.swift */; };
+		C55C1FEC626136E86ED7B75D /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA345393B3C1B6A3E553C270 /* LiveActivityController.swift */; };
+		C9BC9F2D418019D353F262BC /* BackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F279E307C6CC843636059 /* BackgroundRunner.swift */; };
+		FA85A3EEB78E8E83919054E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 191B9E421D095D4E7FCB0420 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		165F29AA158AD9322B06BA2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06B46EA18943CAA100F3B1DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37899E79AC4035E318A4BEF6;
+			remoteInfo = NetSpeedWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B531070857A8507D110C0F70 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				776C8F0D963C3A4D934258BD /* NetSpeedWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A84A7033DFE327ECAE6DBCC /* SpeedFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedFormatter.swift; sourceTree = "<group>"; };
+		191B9E421D095D4E7FCB0420 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1CA32FE2BA7F6A5096104CF5 /* NetSpeed.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NetSpeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2798DE8BBC68D37B17B796B4 /* NetSpeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetSpeed.entitlements; sourceTree = "<group>"; };
+		2C9961EC73341F0F77F4529F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
+		69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
+		6E4F279E307C6CC843636059 /* BackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRunner.swift; sourceTree = "<group>"; };
+		75F7B656DCD7022700AC8D79 /* NetSpeedWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedWidgetsBundle.swift; sourceTree = "<group>"; };
+		8021FCA43C9659058D3153B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9B34D6A7CAFFBE9EECE1F2F2 /* NetSpeedWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = NetSpeedWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A18A5BE7F629F5429F0A7B24 /* SpeedTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestService.swift; sourceTree = "<group>"; };
+		AA345393B3C1B6A3E553C270 /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
+		B10304B2A13F3B1893ADFB71 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B752FBC4B69F1FB9AFB3FE06 /* NetSpeedLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedLiveActivity.swift; sourceTree = "<group>"; };
+		C9379ACBEBD80298ADA7E6D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CA13388201D186472DA0015D /* NetSpeedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedApp.swift; sourceTree = "<group>"; };
+		EDAD71E260E22EB9A274DFC7 /* SpeedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedLogger.swift; sourceTree = "<group>"; };
+		F70548487A041897CB0F6E81 /* TrafficMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficMonitor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		06887E25B351D32907F6C03E /* NetSpeedWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				191B9E421D095D4E7FCB0420 /* Assets.xcassets */,
+				2C9961EC73341F0F77F4529F /* Info.plist */,
+				40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */,
+				B752FBC4B69F1FB9AFB3FE06 /* NetSpeedLiveActivity.swift */,
+				75F7B656DCD7022700AC8D79 /* NetSpeedWidgetsBundle.swift */,
+			);
+			path = NetSpeedWidgets;
+			sourceTree = "<group>";
+		};
+		1DFB351C761E90D1488958E8 = {
+			isa = PBXGroup;
+			children = (
+				2B242A021307E1181D535A24 /* NetSpeed */,
+				06887E25B351D32907F6C03E /* NetSpeedWidgets */,
+				3BEF8E1291DAD5F6BC70AE8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B242A021307E1181D535A24 /* NetSpeed */ = {
+			isa = PBXGroup;
+			children = (
+				C9379ACBEBD80298ADA7E6D3 /* Assets.xcassets */,
+				8021FCA43C9659058D3153B5 /* ContentView.swift */,
+				2798DE8BBC68D37B17B796B4 /* NetSpeed.entitlements */,
+				CA13388201D186472DA0015D /* NetSpeedApp.swift */,
+				B10304B2A13F3B1893ADFB71 /* Theme.swift */,
+				4AC6A7E7A5362A4F41B88C4C /* LiveActivity */,
+				845230F58735FA0DB7B569A9 /* Services */,
+			);
+			path = NetSpeed;
+			sourceTree = "<group>";
+		};
+		3BEF8E1291DAD5F6BC70AE8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1CA32FE2BA7F6A5096104CF5 /* NetSpeed.app */,
+				9B34D6A7CAFFBE9EECE1F2F2 /* NetSpeedWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4AC6A7E7A5362A4F41B88C4C /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				AA345393B3C1B6A3E553C270 /* LiveActivityController.swift */,
+				69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		845230F58735FA0DB7B569A9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6E4F279E307C6CC843636059 /* BackgroundRunner.swift */,
+				0A84A7033DFE327ECAE6DBCC /* SpeedFormatter.swift */,
+				EDAD71E260E22EB9A274DFC7 /* SpeedLogger.swift */,
+				A18A5BE7F629F5429F0A7B24 /* SpeedTestService.swift */,
+				F70548487A041897CB0F6E81 /* TrafficMonitor.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		26BF66298D47F95E5155B207 /* NetSpeed */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CA416DE379E78AF6F88CCE6 /* Build configuration list for PBXNativeTarget "NetSpeed" */;
+			buildPhases = (
+				88FE590742953E14263FFF78 /* Sources */,
+				B705413B97B0189788E7FA6A /* Resources */,
+				B531070857A8507D110C0F70 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4B35EEE24CF616C605B4B3B /* PBXTargetDependency */,
+			);
+			name = NetSpeed;
+			packageProductDependencies = (
+			);
+			productName = NetSpeed;
+			productReference = 1CA32FE2BA7F6A5096104CF5 /* NetSpeed.app */;
+			productType = "com.apple.product-type.application";
+		};
+		37899E79AC4035E318A4BEF6 /* NetSpeedWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D7E116974E2F3F0650A3DFF /* Build configuration list for PBXNativeTarget "NetSpeedWidgets" */;
+			buildPhases = (
+				5A5588918140469D622C0941 /* Sources */,
+				E2F1154AE3E6D2B5BF66CC97 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NetSpeedWidgets;
+			packageProductDependencies = (
+			);
+			productName = NetSpeedWidgets;
+			productReference = 9B34D6A7CAFFBE9EECE1F2F2 /* NetSpeedWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		06B46EA18943CAA100F3B1DC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					26BF66298D47F95E5155B207 = {
+						DevelopmentTeam = 9N9TS4AD89;
+						ProvisioningStyle = Automatic;
+					};
+					37899E79AC4035E318A4BEF6 = {
+						DevelopmentTeam = 9N9TS4AD89;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A3527C32EEEFE60D7A0B1AE3 /* Build configuration list for PBXProject "NetSpeed" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 1DFB351C761E90D1488958E8;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26BF66298D47F95E5155B207 /* NetSpeed */,
+				37899E79AC4035E318A4BEF6 /* NetSpeedWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B705413B97B0189788E7FA6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				419BB8111CCCD1D084147CE7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2F1154AE3E6D2B5BF66CC97 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA85A3EEB78E8E83919054E6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A5588918140469D622C0941 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75FD177D3469DE921FFFF6BE /* NetSpeedActivityAttributes.swift in Sources */,
+				22D818981268F46F58C8206A /* NetSpeedLiveActivity.swift in Sources */,
+				614B77018F8D64DADCC7DE43 /* NetSpeedWidgetsBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88FE590742953E14263FFF78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9BC9F2D418019D353F262BC /* BackgroundRunner.swift in Sources */,
+				BB602C1E0FB001C7DB02AE91 /* ContentView.swift in Sources */,
+				C55C1FEC626136E86ED7B75D /* LiveActivityController.swift in Sources */,
+				2024BEE32D40655F72238840 /* NetSpeedActivityAttributes.swift in Sources */,
+				228567D0AB2822BFCA7B4B8C /* NetSpeedApp.swift in Sources */,
+				6270F5DC408E6857B9510F38 /* SpeedFormatter.swift in Sources */,
+				338F47C69FF7EAD9016C156C /* SpeedLogger.swift in Sources */,
+				721FE2D93260BB070F6BE279 /* SpeedTestService.swift in Sources */,
+				B49933C6F38D7A6191C24616 /* Theme.swift in Sources */,
+				08159D958FADB86B4CC76603 /* TrafficMonitor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C4B35EEE24CF616C605B4B3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37899E79AC4035E318A4BEF6 /* NetSpeedWidgets */;
+			targetProxy = 165F29AA158AD9322B06BA2D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		46AB965268604AC193BFFC81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NetSpeed/NetSpeed.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "网速";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed;
+				PRODUCT_NAME = "网速";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AECA621C7A7448AD23136873 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9N9TS4AD89;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		BB2B4BD8D52D3550E964243A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9N9TS4AD89;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		DF15482F2BAE543DD0BC5189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NetSpeedWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed.widgets;
+				PRODUCT_NAME = NetSpeedWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA78A8854A4A308D2A2054A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NetSpeed/NetSpeed.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "网速";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed;
+				PRODUCT_NAME = "网速";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FAB10E82933525385D752540 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NetSpeedWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed.widgets;
+				PRODUCT_NAME = NetSpeedWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0CA416DE379E78AF6F88CCE6 /* Build configuration list for PBXNativeTarget "NetSpeed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46AB965268604AC193BFFC81 /* Debug */,
+				EA78A8854A4A308D2A2054A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1D7E116974E2F3F0650A3DFF /* Build configuration list for PBXNativeTarget "NetSpeedWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAB10E82933525385D752540 /* Debug */,
+				DF15482F2BAE543DD0BC5189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A3527C32EEEFE60D7A0B1AE3 /* Build configuration list for PBXProject "NetSpeed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AECA621C7A7448AD23136873 /* Debug */,
+				BB2B4BD8D52D3550E964243A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 06B46EA18943CAA100F3B1DC /* Project object */;
+}
