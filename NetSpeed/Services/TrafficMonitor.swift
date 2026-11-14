@@ -34,6 +34,8 @@ final class TrafficMonitor: ObservableObject {
     /// Last values pushed to Dynamic Island (window average).
     @Published private(set) var islandDown: Double = 0
     @Published private(set) var islandUp: Double = 0
+    /// Keep process alive in background so island can keep updating (uses audio session).
+    @Published private(set) var keepAliveEnabled: Bool
 
     private var sourceTimer: DispatchSourceTimer?
     private var lastRx: UInt64?
@@ -48,6 +50,7 @@ final class TrafficMonitor: ObservableObject {
     private let pathQueue = DispatchQueue(label: "com.local.netspeed.path")
     private let historyLimit = 120
     private let defaultsKey = "netspeed.sampleInterval"
+    private let keepAliveKey = "netspeed.keepAlive"
     private let foregroundInterval: TimeInterval = 1.0
     private let idleZeroAfter: TimeInterval = 60.0
     private let noiseFloorBps: Double = 5 * 1024
@@ -73,7 +76,8 @@ final class TrafficMonitor: ObservableObject {
     var statusLabel: String {
         if !isMonitoring { return "监控已暂停 · 灵动岛已结束" }
         if isInBackground {
-            return "\(intervalLabel) · 后台"
+            let alive = keepAliveEnabled ? "后台保活中" : "后台（易被挂起）"
+            return "\(intervalLabel) · \(alive)"
         }
         return "App 实时 · 岛每 \(Int(sampleInterval)) 秒均值刷新"
     }
@@ -85,6 +89,12 @@ final class TrafficMonitor: ObservableObject {
         } else {
             sampleInterval = 5
         }
+        // Default ON — matches “后台也要刷岛” expectation for personal use.
+        if UserDefaults.standard.object(forKey: keepAliveKey) == nil {
+            keepAliveEnabled = true
+        } else {
+            keepAliveEnabled = UserDefaults.standard.bool(forKey: keepAliveKey)
+        }
         startPathMonitor()
         start()
     }
@@ -93,27 +103,39 @@ final class TrafficMonitor: ObservableObject {
         switch phase {
         case .active:
             isInBackground = false
-            BackgroundRunner.shared.end()
+            if !keepAliveEnabled {
+                BackgroundRunner.shared.end()
+            }
             log.info("scene=active")
             if isMonitoring {
                 resetIslandWindow()
                 ensureTimerRunning(fireImmediately: true)
+                syncKeepAlive()
             }
         case .inactive:
             log.debug("scene=inactive")
             if isMonitoring {
                 BackgroundRunner.shared.begin()
+                syncKeepAlive()
             }
         case .background:
             isInBackground = true
-            log.info("scene=background")
+            log.info("scene=background keepAlive=\(keepAliveEnabled)")
             guard isMonitoring else { return }
             BackgroundRunner.shared.begin()
+            syncKeepAlive()
             resetIslandWindow()
             ensureTimerRunning(fireImmediately: true)
         @unknown default:
             break
         }
+    }
+
+    func setKeepAliveEnabled(_ enabled: Bool) {
+        keepAliveEnabled = enabled
+        UserDefaults.standard.set(enabled, forKey: keepAliveKey)
+        log.info("keepAlive=\(enabled)")
+        syncKeepAlive()
     }
 
     func setSampleInterval(_ seconds: TimeInterval) {
@@ -152,6 +174,7 @@ final class TrafficMonitor: ObservableObject {
         resetIslandWindow()
         log.info("monitor=start ui=\(foregroundInterval)s island=\(sampleInterval)s")
         ensureTimerRunning(fireImmediately: true)
+        syncKeepAlive()
     }
 
     func stop() {
@@ -162,10 +185,23 @@ final class TrafficMonitor: ObservableObject {
         islandDown = 0
         islandUp = 0
         lastTrafficAt = nil
+        BackgroundKeepAlive.shared.stop()
         BackgroundRunner.shared.end()
         LiveActivityController.end()
         liveActivityOn = false
         log.info("monitor=stop")
+    }
+
+    private func syncKeepAlive() {
+        if keepAliveEnabled, isMonitoring {
+            BackgroundKeepAlive.shared.start()
+            BackgroundRunner.shared.begin()
+        } else {
+            BackgroundKeepAlive.shared.stop()
+            if !isInBackground {
+                BackgroundRunner.shared.end()
+            }
+        }
     }
 
     private func resetIslandWindow() {

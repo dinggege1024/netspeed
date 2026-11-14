@@ -84,9 +84,9 @@ struct ContentView: View {
             }
             Text(
                 monitor.liveActivityOn
-                    ? (monitor.isInBackground
-                        ? "后台刷新中：系统后台时间用完后刘海会停。若从多任务上滑杀掉 App，岛会立刻冻住。"
-                        : "切到别的 App 会尽量续刷刘海；从多任务划掉杀掉则无法再更新（系统限制）。")
+                    ? (monitor.keepAliveEnabled
+                        ? "已开后台保活：切走后按间隔继续刷岛（更耗电）。从多任务杀掉 App 仍会停。"
+                        : "未开后台保活：系统挂起后刘海会冻住，需再打开 App。")
                     : "开始监控后会尝试打开灵动岛。请在系统设置 → 网速 中允许实时活动。"
             )
             .font(.caption)
@@ -295,6 +295,21 @@ struct ContentView: View {
                     .buttonStyle(.plain)
                 }
             }
+
+            Toggle(isOn: Binding(
+                get: { monitor.keepAliveEnabled },
+                set: { monitor.setKeepAliveEnabled($0) }
+            )) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("后台持续刷岛")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Theme.text)
+                    Text("保活进程，切走后仍按间隔更新灵动岛（更耗电；杀进程无效）")
+                        .font(.caption)
+                        .foregroundStyle(Theme.textFaint)
+                }
+            }
+            .tint(Theme.teal)
         }
         .padding(16)
         .background(

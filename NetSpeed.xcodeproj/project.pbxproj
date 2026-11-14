@@ -18,6 +18,7 @@
 		721FE2D93260BB070F6BE279 /* SpeedTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18A5BE7F629F5429F0A7B24 /* SpeedTestService.swift */; };
 		75FD177D3469DE921FFFF6BE /* NetSpeedActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */; };
 		776C8F0D963C3A4D934258BD /* NetSpeedWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9B34D6A7CAFFBE9EECE1F2F2 /* NetSpeedWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7809B14398C7972C13D0941E /* BackgroundKeepAlive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3897FDABAE2411EADF5A17DE /* BackgroundKeepAlive.swift */; };
 		B49933C6F38D7A6191C24616 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10304B2A13F3B1893ADFB71 /* Theme.swift */; };
 		BB602C1E0FB001C7DB02AE91 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8021FCA43C9659058D3153B5 /* ContentView.swift */; };
 		C55C1FEC626136E86ED7B75D /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA345393B3C1B6A3E553C270 /* LiveActivityController.swift */; };
@@ -56,6 +57,7 @@
 		2798DE8BBC68D37B17B796B4 /* NetSpeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetSpeed.entitlements; sourceTree = "<group>"; };
 		2C9961EC73341F0F77F4529F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		31116DD974D41F6BEE1F21EB /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		3897FDABAE2411EADF5A17DE /* BackgroundKeepAlive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundKeepAlive.swift; sourceTree = "<group>"; };
 		40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
 		69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
 		6E4F279E307C6CC843636059 /* BackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRunner.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		845230F58735FA0DB7B569A9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3897FDABAE2411EADF5A17DE /* BackgroundKeepAlive.swift */,
 				6E4F279E307C6CC843636059 /* BackgroundRunner.swift */,
 				0A84A7033DFE327ECAE6DBCC /* SpeedFormatter.swift */,
 				EDAD71E260E22EB9A274DFC7 /* SpeedLogger.swift */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7809B14398C7972C13D0941E /* BackgroundKeepAlive.swift in Sources */,
 				C9BC9F2D418019D353F262BC /* BackgroundRunner.swift in Sources */,
 				BB602C1E0FB001C7DB02AE91 /* ContentView.swift in Sources */,
 				C55C1FEC626136E86ED7B75D /* LiveActivityController.swift in Sources */,
