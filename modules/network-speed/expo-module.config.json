@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["NetworkSpeedModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.networkspeed.NetworkSpeedModule"]
+  }
+}

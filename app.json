@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "网速",
+    "slug": "netspeed",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "netspeed",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#04161A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.netspeed.app",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "用于读取本机网络接口流量以显示实时网速。",
+        "NSSupportsLiveActivities": true,
+        "NSSupportsLiveActivitiesFrequentUpdates": true
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#04161A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.netspeed.app",
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-dev-client",
+      [
+        "expo-widgets",
+        {
+          "bundleIdentifier": "com.netspeed.app.widgets",
+          "groupIdentifier": "group.com.netspeed.app",
+          "frequentUpdates": true
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

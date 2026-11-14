@@ -1,0 +1,16 @@
+export const colors = {
+  bgDeep: '#04161A',
+  bgMid: '#0A2A30',
+  bgLift: '#0F3A40',
+  teal: '#1ECAD3',
+  tealSoft: '#7EE7EC',
+  tealDim: 'rgba(30, 202, 211, 0.18)',
+  mint: '#5EF2A8',
+  coral: '#FF7A59',
+  amber: '#F5C84C',
+  text: '#E8F7F8',
+  textMuted: 'rgba(232, 247, 248, 0.62)',
+  textFaint: 'rgba(232, 247, 248, 0.38)',
+  line: 'rgba(126, 231, 236, 0.16)',
+  card: 'rgba(8, 36, 42, 0.72)',
+} as const;
