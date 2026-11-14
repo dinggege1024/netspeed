@@ -7,10 +7,11 @@ options:
   xcodeVersion: "16.0"
 settings:
   base:
-    # Set your Apple Team ID in Xcode (Signing & Capabilities), or:
-    # DEVELOPMENT_TEAM: YOUR_TEAM_ID
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1"
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
 targets:
   NetSpeed:
     type: application

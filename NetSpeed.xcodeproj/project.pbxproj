@@ -55,6 +55,7 @@
 		1CA32FE2BA7F6A5096104CF5 /* NetSpeed.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NetSpeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2798DE8BBC68D37B17B796B4 /* NetSpeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetSpeed.entitlements; sourceTree = "<group>"; };
 		2C9961EC73341F0F77F4529F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		31116DD974D41F6BEE1F21EB /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		40A002CDB13C2808859E58F3 /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
 		69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSpeedActivityAttributes.swift; sourceTree = "<group>"; };
 		6E4F279E307C6CC843636059 /* BackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRunner.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		1DFB351C761E90D1488958E8 = {
 			isa = PBXGroup;
 			children = (
+				5F2421B8E7E31B6749411E73 /* Config */,
 				2B242A021307E1181D535A24 /* NetSpeed */,
 				06887E25B351D32907F6C03E /* NetSpeedWidgets */,
 				3BEF8E1291DAD5F6BC70AE8E /* Products */,
@@ -123,6 +125,14 @@
 				69FCD00657C2D71D6E2AAEFA /* NetSpeedActivityAttributes.swift */,
 			);
 			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		5F2421B8E7E31B6749411E73 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				31116DD974D41F6BEE1F21EB /* Shared.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		845230F58735FA0DB7B569A9 /* Services */ = {
@@ -296,12 +306,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed;
 				PRODUCT_NAME = "网速";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		AECA621C7A7448AD23136873 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31116DD974D41F6BEE1F21EB /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -335,7 +345,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -367,6 +376,7 @@
 		};
 		BB2B4BD8D52D3550E964243A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31116DD974D41F6BEE1F21EB /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -400,7 +410,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -436,7 +445,6 @@
 				PRODUCT_NAME = NetSpeedWidgets;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -463,7 +471,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.netspeed;
 				PRODUCT_NAME = "网速";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -480,7 +487,6 @@
 				PRODUCT_NAME = NetSpeedWidgets;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};

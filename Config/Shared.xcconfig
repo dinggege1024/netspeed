@@ -1,0 +1,5 @@
+// Shared build settings. Personal Team ID lives in Local.xcconfig (gitignored).
+#include? "Local.xcconfig"
+
+SWIFT_VERSION = 5.0
+TARGETED_DEVICE_FAMILY = 1

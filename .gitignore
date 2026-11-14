@@ -53,3 +53,6 @@ xcuserdata/
 # Local logs
 **/Logs/
 *.log
+
+# Local signing (Team ID etc.) — keep on machine only
+Config/Local.xcconfig

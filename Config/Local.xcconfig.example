@@ -1,0 +1,3 @@
+// Copy to Local.xcconfig and fill in your Apple Team ID.
+// Local.xcconfig is gitignored and will not be pushed.
+DEVELOPMENT_TEAM = YOUR_TEAM_ID

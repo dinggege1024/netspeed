@@ -18,7 +18,8 @@ xcodegen generate   # 需要已安装 XcodeGen
 open NetSpeed.xcodeproj
 ```
 
-在 Xcode → Signing & Capabilities 里选你自己的 Team，连上 iPhone 后 Run。  
+签名：复制 `Config/Local.xcconfig.example` 为 `Config/Local.xcconfig`，填入你的 Apple Team ID（该文件已 gitignore，不会推送）。  
+然后连上 iPhone，在 Xcode 里 Run。  
 Bundle ID：`com.local.netspeed` / `com.local.netspeed.widgets`
 
 ## 说明
